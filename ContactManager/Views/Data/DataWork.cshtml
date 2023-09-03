@@ -1,0 +1,68 @@
+﻿
+
+@{
+    ViewData["Title"] = "Перегляд даних";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="ua">
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+</head>
+
+<body>
+
+
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Дата народження</th>
+                <th>Одружений</th>
+                <th>Телефон</th>
+                <th>Зарплата</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.Name</td>
+                    <td>@person.BirthDate.ToString("dd/MM/yyyy")</td>
+                    <td>@(person.Married ? "Так" : "Ні")</td
+                    <td>@person.Phone</td>
+                    <td>@person.Salary</td>
+                    <td>
+                        <a asp-controller="Person" asp-action="Edit" asp-route-id="@person.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@person.Id" class="btn btn-danger btn-sm">Видалити</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Ukranian.json"
+                }
+            });
+        });
+    </script>
+
+</body>
+
+
+</html>
